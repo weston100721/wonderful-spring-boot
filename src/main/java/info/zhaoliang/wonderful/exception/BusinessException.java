@@ -5,9 +5,13 @@ package info.zhaoliang.wonderful.exception;
  */
 public class BusinessException extends RuntimeException {
     private static final long serialVersionUID = -3982645755980473694L;
-    /** 错误描述. */
+    /**
+     * 错误描述.
+     */
     private String msg;
-    /** 错误代码. */
+    /**
+     * 错误代码.
+     */
     private String code;
 
     /**
@@ -19,7 +23,7 @@ public class BusinessException extends RuntimeException {
 
     /**
      * 构造方法.
-     * 
+     *
      * @param resultCode the detail message.
      */
     public BusinessException(IErrorCode resultCode) {
@@ -41,7 +45,7 @@ public class BusinessException extends RuntimeException {
      * 构造方法.
      *
      * @param resultCode the detail message.
-     * @param cause the cause. (A {@code null} value is permitted, and indicates that the cause is nonexistent or unknown.)
+     * @param cause      the cause. (A {@code null} value is permitted, and indicates that the cause is nonexistent or unknown.)
      */
     public BusinessException(IErrorCode resultCode, Throwable cause) {
         super(resultCode.getMsg(), cause);
@@ -52,9 +56,9 @@ public class BusinessException extends RuntimeException {
     /**
      * 构造方法.
      *
-     * @param resultCode the detail message.
-     * @param cause the cause. (A {@code null} value is permitted, and indicates that the cause is nonexistent or unknown.)
-     * @param enableSuppression whether or not suppression is enabled or disabled
+     * @param resultCode         the detail message.
+     * @param cause              the cause. (A {@code null} value is permitted, and indicates that the cause is nonexistent or unknown.)
+     * @param enableSuppression  whether or not suppression is enabled or disabled
      * @param writableStackTrace whether or not the stack trace should be writable
      */
     public BusinessException(IErrorCode resultCode, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {

@@ -10,11 +10,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.util.StringUtils;
 
-import info.zhaoliang.wonderful.exception.BusinessException;
 
 /**
  * starter application.
@@ -51,10 +54,19 @@ public class Application {
                     Long dateLong = Long.valueOf(milliseconds);
                     date = new Date(dateLong);
                 } catch (Exception e) {
-                    throw new BusinessException(e);
+                    throw new info.zhaoliang.wonderful.exception.BusinessException(e);
                 }
                 return date;
             }
         };
+    }
+
+    @Bean RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
+            MessageListenerAdapter listenerAdapter) {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.addMessageListener(listenerAdapter, new PatternTopic("testkafka"));
+        container.addMessageListener(listenerAdapter, new PatternTopic("testkafka1"));//配置要订阅的订阅项
+        return container;
     }
 }
